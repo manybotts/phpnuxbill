@@ -1,19 +1,11 @@
-<Files *.php>
-    Order Deny,Allow
-    Deny from all
-</Files>
+# PHPNuxBill /system protection for Koyeb.
+# Deny direct web access to PHP files inside /system, except api.php.
+# cron.php is intentionally NOT public; run it through /cron-run.php with CRON_SECRET.
 
-<Files cron.php>
-    Order Allow,Deny
-    Allow from all
-</Files>
+<FilesMatch "^(?!api\.php$).+\.php$">
+    Require all denied
+</FilesMatch>
 
-<Files api.php>
-    Order Allow,Deny
-    Allow from all
-</Files>
-
-<Files cron_reminder.php>
-    Order Allow,Deny
-    Allow from all
+<Files "api.php">
+    Require all granted
 </Files>
